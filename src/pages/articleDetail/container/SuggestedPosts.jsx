@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { images, stables } from "../../../constants";
 
 const SuggestedPosts = ({ className, header, posts = [], tags }) => {
+
     return (
         <div
         className={`w-full shadow-[0px_0px_0px_1px_rgba(0,0,0,0.06),0px_1px_1px_-0.5px_rgba(0,0,0,0.06),0px_3px_3px_-1.5px_rgba(0,0,0,0.06),_0px_6px_6px_-3px_rgba(0,0,0,0.06),0px_12px_12px_-6px_rgba(0,0,0,0.06),0px_24px_24px_-12px_rgba(0,0,0,0.06)] rounded-lg p-4 ${className}`}
@@ -18,7 +19,7 @@ const SuggestedPosts = ({ className, header, posts = [], tags }) => {
             >
                 <img
                 className="aspect-square object-cover rounded-lg w-1/5"
-                src={item?.image ? stables.UPLOAD_FOLDER_BASE_URL + item?.image : images.NoImage}
+                src={item?.photo ? stables.UPLOAD_FOLDER_BASE_URL + item?.photo : images.NoImage}
                 alt={item?.title}
                 />
                 <div className="text-sm font-roboto text-dark-hard font-medium">

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useMemo } from 'react'
 import MainLayout from '../../components/MainLayout'
 import { useNavigate } from 'react-router-dom'
 import { useForm } from 'react-hook-form'
@@ -29,7 +29,8 @@ function ProfilePage() {
         mutationFn : ({name , email , password}) => {
             return updateProfile({
                 token : userState.userInfo.token ,
-                userData : {name , email , password} 
+                userData : {name , email , password},
+                userId : userState?.userInfo?._id,
             });
         },
         onSuccess : (data) => {
@@ -58,10 +59,12 @@ function ProfilePage() {
             email : '', 
             password : '',
         },
-        values : {
-            name : profileIsLoading ? "" : profileData.name,
-            email : profileIsLoading ? "" : profileData.email,
-        },
+        values : useMemo(()=> { 
+            return  {
+            name : profileIsLoading ? "" : profileData?.name,
+            email : profileIsLoading ? "" : profileData?.email,
+        }
+        }, [profileData?.email, profileData?.name, profileIsLoading]) ,
         mode: "onchange",
     });
 

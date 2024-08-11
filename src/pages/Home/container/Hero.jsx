@@ -1,6 +1,6 @@
 import React from 'react'
-import { FaSearch } from "react-icons/fa";
 import images from '../../../constants/images'
+import Search from '../../../components/Search'
 function Hero() {
     return (
         <section className='container mx-auto flex flex-col px-5 py-5 lg:flex-row'>
@@ -15,16 +15,10 @@ function Hero() {
                         </p>
                     </div>
 
-                    <div className='flex flex-col gap-y-2.5 mt-10 relative lg:mt-6 xl-mt-10'>
-                        <div className='relative'>
-                            <FaSearch className='absolute left-3 top-1/2 -translate-y-1/2 w-6 h-6 text-[#959EAD]'/>
-                            <input className='placeholder:font-bold font-semibold text-dark-soft placeholder:text-[#959EAD] rounded-lg pl-12 pr-3 w-full py-3 focus:outline-none 
-                            shadow-[0px_2px_3px_-1px_rgba(0,0,0,0.1),0px_1px_0px_0px_rgba(25,28,33,0.02),0px_0px_0px_1px_rgba(25,28,33,0.08)] md:py-4 ' placeholder='Search Articles' type="text"></input>
-                        </div>
+                    <Search 
+                        className ="mt-10 lg:mt-6 xl-mt-10"
+                    />
 
-                        <button className='w-full bg-primary text-white font-semibold rounded-lg px-5 py-3 md:absolute md:right-2 md:top-1/2 md:-translate-y-1/2 md:w-fit md:py-2 '>Search</button>
-                    </div>
-                
                     <div className='flex mt-4 flex-col lg:flex-row lg:items-start lg:flex-nowrap lg:gap-x-4 lg:mt-7 '>
                         <span className='text-dark-light font-semibold  italic mt-2 lg:mt-4 lg:text-sm xl:text-base'>Popular Tags:</span>
                         <ul className='flex flex-wrap gap-x-2.5 gap-y-2.5 mt-3 lg:text-sm xl:text-base'>

@@ -17,14 +17,14 @@ export const createComment = async ({token , desc , slug , parent  , replayOnUse
 }
 
 
-export const updateComment = async ({token , desc , commentId  }) => {
+export const updateComment = async ({token , desc ,check, commentId  }) => {
     try {
         const config = {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         }
-        const { data } = await axios.put(`/api/comments/${commentId}` , {desc} , config) 
+        const { data } = await axios.put(`/api/comments/${commentId}` , {desc , check} , config) 
         
         return data 
     } catch (error) {
@@ -35,6 +35,7 @@ export const updateComment = async ({token , desc , commentId  }) => {
 
 
 export const deleteComment = async ({token  , commentId  }) => {
+    console.log(commentId);
     try {
         const config = {
             headers: {
@@ -49,3 +50,22 @@ export const deleteComment = async ({token  , commentId  }) => {
         throw new Error(error.message);
     }
 }
+
+export const getAllComments = async (token , searchKeyword = "", page = 1, limit = 10 ) => {
+    try {
+        const config = {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        }
+
+        const { data, headers } = await axios.get(`/api/comments?searchKeyword=${searchKeyword}&page=${page}&limit=${limit}` , config);
+        return { data, headers };
+
+
+    } catch (error) {
+        if (error.response && error.response.data.message)
+        throw new Error(error.response.data.message);
+        throw new Error(error.message);
+    }
+};
