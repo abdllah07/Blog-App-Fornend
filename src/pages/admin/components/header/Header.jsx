@@ -13,6 +13,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { createPost } from "../../../../services/index/posts";
+import { createNewNews } from "../../../../services/index/news";
 
 
 
@@ -54,8 +55,28 @@ function Header() {
         },
         });
 
+    const { mutate : mutateCreateNews , isLoading : isLoadingCreateNews } = useMutation({
+        mutationFn: ({ token }) => {
+            return createNewNews({ token})
+        }, 
+        onSuccess: (data) => {
+            queryClient.invalidateQueries(["news"])
+            toast.success("news added  successfully edit it Now ! ");
+            console.log(data)
+            navigate(`/admin/news/manage/edit/${data?.slug}`)
+        },
+        onError: (error) => {
+            toast.error(error.message);
+            console.log(error);
+        },
+        });
+
     const handleCreateNewPost = ({token})=> {
         mutateCreatePost({token: token})
+    }
+
+    const handleCreateNewNews = ({token})=> {
+        mutateCreateNews({token: token})
     }
 
 
@@ -133,6 +154,25 @@ function Header() {
                                     <Link to="/admin/categories/manage">
                                         Categories
                                     </Link>
+                                    </NavItemDown>
+                                    {/*  */}
+                                    <NavItemDown
+                                    title="News"
+                                    icon={<MdPostAdd className="text-xl"/>}
+                                    name="news"
+                                    activeNavName={activeNavName}
+                                    setActiveNavName = {setActiveNavName}
+                                >
+                                    <Link to="/admin/news/manage">
+                                        Manage All news
+                                    </Link>
+
+                                    <button  className="text-start disabled:opacity-70 disabled:cursor-not-allowed"   
+                                    disabled= {isLoadingCreateNews}
+                                    onClick={() => {
+                                            handleCreateNewNews({ token: userState?.userInfo?.token})
+                                        }} >
+                                        Add New News</button>
                                     </NavItemDown>
                     </div>
                 </div>

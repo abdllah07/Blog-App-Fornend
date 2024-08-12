@@ -15,6 +15,9 @@ import Categories from './pages/admin/screens/categories/Categories';
 import EditCategories from './pages/admin/screens/categories/EditCategories';
 import Users from './pages/admin/screens/users/Users';
 import BlogPage from './pages/blog/BlogPage';
+import EditNews from './pages/admin/screens/news/EditNews';
+import ManageNews from './pages/admin/screens/news/ManageNews';
+import NewsDetailPage from './pages/newsDetail/NewsDetailPage';
 function App() {
   return ( 
     <div className="App font-opensans" >
@@ -38,8 +41,13 @@ function App() {
 
           <Route  path = "users/manage"  element={<Users />} />
 
+          <Route  path = "news/manage"  element={<ManageNews />} />
+          <Route  path = "news/manage/edit/:slug"  element={<EditNews />} />
+
+
           
         </Route>
+        <Route   path="/news/:slug" element={<NewsDetailPage />} />
 
       </Routes>
       <Toaster/>

@@ -1,6 +1,26 @@
+import { useQuery } from '@tanstack/react-query'
 import React from 'react'
+import { getAllNews } from '../../../services/index/news'
+import toast from 'react-hot-toast'
+import ErrorMessage from '../../../components/ErrorMessage'
+import ArticleCardSkeleton from '../../../components/ArticleCardSkeleton'
+import stables from '../../../constants/stables'
+import images from '../../../constants/images'
+import { Link } from 'react-router-dom'
+import { FaArrowRight } from "react-icons/fa";
 
 function NewsBlog() {
+
+
+    const {data , isLoading , isError} = useQuery({
+        queryKey :  ["news"],
+        queryFn :  () => getAllNews("" , 1 , 6),
+        onError : (error) => {
+            toast.error(error.message)
+            console.log(error)
+        },
+
+    })
 
 
     return (
@@ -16,89 +36,51 @@ function NewsBlog() {
                 </div>
 
                 <div className="grid grid-cols-1 gap-8 mt-8 md:mt-16 md:grid-cols-2 xl:grid-cols-3">
-                    <div>
-                        <div className="relative">
-                            <img className="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="https://images.unsplash.com/photo-1624996379697-f01d168b1a52?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="" />
 
-                            <div className="absolute bottom-0 flex p-3 bg-white dark:bg-gray-900 ">
-                                <img className="object-cover object-center w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="" />
-
-                                <div className="mx-4">
-                                    <h1 className="text-sm text-gray-700 dark:text-gray-200">Tom Hank</h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Creative Director</p>
+                    {
+                        isLoading ? (
+                            [...Array(3)].map((item , index) => (
+                                <ArticleCardSkeleton key={index} className="w-full md:w-[calc(50%-20px)] lg:w-[calc(33.33%-21px)]"/>
+                                    ))
+                        ) : isError ? <ErrorMessage message="Couldn't fetch the News data"/> 
+                        : (
+                            data?.data?.map((news , index) => (
+                                <div className='shadow-2xl border-b-2 border-blue-300/25 hover:-translate-y-6 duration-700'>
+                                <div className="relative ">
+                                    <img className="object-cover object-center w-full h-30 rounded-lg lg:h-80" src={news?.photo ? stables.UPLOAD_FOLDER_BASE_URL + news?.photo : images.NoImage} alt="" />
+        
+                                    <div className="absolute bottom-0 flex p-3 bg-white dark:bg-gray-200 rounded-lg ">
+                                        <img className="object-cover object-center w-10 h-10 rounded-full" src={news?.user?.avatar ? stables.UPLOAD_FOLDER_BASE_URL + news?.user?.avatar : images.NoImage} alt="" />
+        
+                                        <div className="mx-4 flex items-center">
+                                            <h1 className="text-sm text-gray-700 dark:text-gray-900 font-bold">
+                                                {news?.user?.name}
+                                            </h1>
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>
+        
+                                <h1 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
+                                        {news?.title}
+                                </h1>
+        
+                                <hr className="w-32 my-6 text-blue-500" />
+        
+                                <p className="text-sm text-gray-500 dark:text-gray-400">
+                                    {news?.caption}
+                                </p>
 
-                        <h1 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
-                            What do you want to know about UI
-                        </h1>
+                                <Link
+                                    to = {`news/${news?.slug}`}
+                                    className='hover:animate-bounce mt-3 mb-3 flex w-fit items-center gap-x-2 font-bold text-white border-2 border-blue-300/25 px-6 py-3 rounded-lg'>
+                                    <span className=''>More Articles </span>
+                                    <FaArrowRight className='w-3 h-3 '/>
+                                </Link>
 
-                        <hr className="w-32 my-6 text-blue-500" />
-
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis fugit dolorum amet dolores
-                            praesentium, alias nam? Tempore
-                        </p>
-
-                        <a href="/" className="inline-block mt-4 text-blue-500 underline hover:text-blue-400">Read more</a>
-                    </div>
-
-                    <div>
-                        <div className="relative">
-                            <img className="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="" />
-
-                            <div className="absolute bottom-0 flex p-3 bg-white dark:bg-gray-900 ">
-                                <img className="object-cover object-center w-10 h-10 rounded-full"src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=880&q=80"alt="" />
-
-                                <div className="mx-4">
-                                    <h1 className="text-sm text-gray-700 dark:text-gray-200">arthur melo</h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Creative Director</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h1 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
-                            All the features you want to know
-                        </h1>
-
-                        <hr className="w-32 my-6 text-blue-500" />
-
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis fugit dolorum amet dolores
-                            praesentium, alias nam? Tempore
-                        </p>
-
-                        <a href="/" className="inline-block mt-4 text-blue-500 underline hover:text-blue-400">Read more</a>
-                    </div>
-
-                    <div>
-                        <div className="relative">
-                            <img className="object-cover object-center w-full h-64 rounded-lg lg:h-80" src="https://images.unsplash.com/photo-1597534458220-9fb4969f2df5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1374&q=80" alt="" />
-
-                            <div className="absolute bottom-0 flex p-3 bg-white dark:bg-gray-900 ">
-                                <img className="object-cover object-center w-10 h-10 rounded-full" src="https://images.unsplash.com/photo-1531590878845-12627191e687?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=764&q=80" alt="" />
-
-                                <div className="mx-4">
-                                    <h1 className="text-sm text-gray-700 dark:text-gray-200">Amelia. Anderson</h1>
-                                    <p className="text-sm text-gray-500 dark:text-gray-400">Lead Developer</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <h1 className="mt-6 text-xl font-semibold text-gray-800 dark:text-white">
-                            Which services you get from Meraki UI
-                        </h1>
-
-                        <hr className="w-32 my-6 text-blue-500" />
-
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Blanditiis fugit dolorum amet dolores
-                            praesentium, alias nam? Tempore
-                        </p>
-
-                        <a href="/" className="inline-block mt-4 text-blue-500 underline hover:text-blue-400">Read more</a>
-                    </div>
+                            </div> 
+                            ))
+                        )
+                    }
                 </div>
             </div>
         </section>

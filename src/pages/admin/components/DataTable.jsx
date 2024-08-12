@@ -79,7 +79,6 @@ return (
                 onPageChange={(page) => setCurrentPage(page)}
                 currentPage={currentPage}
                 totalPageCount={JSON.parse(headers?.["x-totalpagecount"])}
-                // JSON.parse(headers?.['x-totalPageCount'])
                     />  
             )}
         </div>

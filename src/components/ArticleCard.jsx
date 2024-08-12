@@ -17,7 +17,7 @@ function ArticleCard({ post,className}) {
             </Link>
             <div className='p-5'>
                     <Link to = {`blog/${post?.slug}`}>
-                        <h2 className='font-roboto font-bold text-xl text-dark-soft md:text-2xl lg:text-[28px]'>{post?.title}</h2>
+                        <h2 className='font-roboto font-bold text-xl text-dark-soft md:text-2xl lg:text-[28px] '>{post?.title}</h2>
                         <p className='text-dark-light mt-3 text-sm md:text-lg'>{post?.caption}</p>
                     </Link>
                     <div className='flex justify-between flex-nowrap items-center mt-6'>

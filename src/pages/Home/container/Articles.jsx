@@ -33,13 +33,13 @@ function Articles() {
                         <ArticleCard 
                         key={post._id} 
                         post = {post}
-                        className="w-full md:w-[calc(50%-20px)] lg:w-[calc(33.33%-21px)]" />
+                        className="hover:bg-gray-200 border-b-2 border-transparent hover:border-primary   hover:-translate-y-6 duration-700 w-full md:w-[calc(50%-20px)] lg:w-[calc(33.33%-21px)]" />
                     ))}
             </div>
             <Link
                 to="/blog"
-                className='mx-auto flex items-center gap-x-2 font-bold text-primary border-2 border-primary px-6 py-3 rounded-lg'>
-                <span>More Articles </span>
+                className='animate-bounce mx-auto flex items-center gap-x-2 font-bold text-primary border-2 border-primary px-6 py-3 rounded-lg'>
+                <span className=''>More Articles </span>
                 <FaArrowRight className='w-3 h-3 '/>
             </Link>
 

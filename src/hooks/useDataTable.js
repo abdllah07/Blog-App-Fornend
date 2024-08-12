@@ -18,12 +18,12 @@ export const useDataTable = ({
     const [currentPage, setCurrentPage] = useState(1);
     const userState = useSelector((state => state.user))
 
-    // get all posts and display them in the Latest Article
+    // get all 
     const { data, status, isLoading, isFetching, refetch } = useQuery({
         queryKey: [dataQueryKey],  // Updated to an array
         queryFn: dataQueryFn,
     });
-    // delete the post 
+    // delete 
     const { mutate : mutateDeletePost , isLoading : isLoadingDeleteData } = useMutation({
         mutationFn: mutateDeleteFn,
         onSuccess: (data) => {
