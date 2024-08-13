@@ -6,6 +6,7 @@ import CTA from './container/CTA'
 import Pricing from './container/Pricing'
 import Descover from './container/Descover'
 import NewsBlog from './container/NewsBlog'
+import UserArticle from './container/UserArticle'
 
 function HomePage() {
     return <MainLayout>
@@ -13,6 +14,7 @@ function HomePage() {
         <Articles/>
         <Descover/>
         <NewsBlog/>
+        <UserArticle/>
         <Pricing/>
         <CTA/>
     </MainLayout>

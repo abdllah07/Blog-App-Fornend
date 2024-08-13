@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import { createPost } from "../../../../services/index/posts";
 import { createNewNews } from "../../../../services/index/news";
+import { createNewUserArticle } from "../../../../services/index/userArticle";
 
 
 
@@ -71,12 +72,33 @@ function Header() {
         },
         });
 
+
+        const { mutate : mutateCreateUserArticle , isLoading : isLoadingCreateUserArticle } = useMutation({
+            mutationFn: ({ token }) => {
+                return createNewUserArticle({ token})
+            }, 
+            onSuccess: (data) => {
+                queryClient.invalidateQueries(["userArticle"])
+                toast.success("User Article added  successfully edit it Now ! ");
+                console.log(data)
+                navigate(`/admin/userArticle/manage/edit/${data?.slug}`)
+            },
+            onError: (error) => {
+                toast.error(error.message);
+                console.log(error);
+            },
+            });
+
     const handleCreateNewPost = ({token})=> {
         mutateCreatePost({token: token})
     }
 
     const handleCreateNewNews = ({token})=> {
         mutateCreateNews({token: token})
+    }
+
+    const handleCreateNewUserArticle = ({token})=> {
+        mutateCreateUserArticle({token: token})
     }
 
 
@@ -174,6 +196,27 @@ function Header() {
                                         }} >
                                         Add New News</button>
                                     </NavItemDown>
+
+                                    <NavItemDown
+                                    title="User Article"
+                                    icon={<MdPostAdd className="text-xl"/>}
+                                    name="UserArticle"
+                                    activeNavName={activeNavName}
+                                    setActiveNavName = {setActiveNavName}
+                                >
+                                    <Link to="/admin/userArticle/manage">
+                                        Manage All User Article
+                                    </Link>
+
+                                    <button  className="text-start disabled:opacity-70 disabled:cursor-not-allowed"   
+                                    disabled= {isLoadingCreateUserArticle}
+                                    onClick={() => {
+                                        handleCreateNewUserArticle({ token: userState?.userInfo?.token})
+                                        }} >
+                                        Add New Article</button>
+                                    </NavItemDown>
+
+
                     </div>
                 </div>
             </div>

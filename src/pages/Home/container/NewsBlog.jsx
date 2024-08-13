@@ -45,7 +45,7 @@ function NewsBlog() {
                         ) : isError ? <ErrorMessage message="Couldn't fetch the News data"/> 
                         : (
                             data?.data?.map((news , index) => (
-                                <div className='shadow-2xl border-b-2 border-blue-300/25 hover:-translate-y-6 duration-700'>
+                                <div className='shadow-2xl border-b-2 border-blue-300/25 hover:-translate-y-6 duration-700' key={index}>
                                 <div className="relative ">
                                     <img className="object-cover object-center w-full h-30 rounded-lg lg:h-80" src={news?.photo ? stables.UPLOAD_FOLDER_BASE_URL + news?.photo : images.NoImage} alt="" />
         

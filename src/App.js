@@ -18,6 +18,8 @@ import BlogPage from './pages/blog/BlogPage';
 import EditNews from './pages/admin/screens/news/EditNews';
 import ManageNews from './pages/admin/screens/news/ManageNews';
 import NewsDetailPage from './pages/newsDetail/NewsDetailPage';
+import ManageUserArticle from './pages/admin/screens/userArticel/ManageUserArticle';
+import EditUserArticle from './pages/admin/screens/userArticel/EditUserArticle';
 function App() {
   return ( 
     <div className="App font-opensans" >
@@ -44,11 +46,14 @@ function App() {
           <Route  path = "news/manage"  element={<ManageNews />} />
           <Route  path = "news/manage/edit/:slug"  element={<EditNews />} />
 
+    
+          <Route  path = "userArticle/manage"  element={<ManageUserArticle />} />
+          <Route  path = "userArticle/manage/edit/:slug"  element={<EditUserArticle />} />
 
+    
           
         </Route>
         <Route   path="/news/:slug" element={<NewsDetailPage />} />
-
       </Routes>
       <Toaster/>
     </div>
